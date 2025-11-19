@@ -1,4 +1,4 @@
-namespace AplikacjaRozwojDziecka.Models
+namespace Aplikacja_wspierajaca_rozwoj_dziecka.Models
 {
     public class ErrorViewModel
     {
