@@ -1,0 +1,110 @@
+﻿@model Aplikacja_wspierajaca_rozwoj_dziecka.Models.Dziecko
+
+
+<h2>Szczegóły dziecka</h2>
+
+<div>
+    <h4>@Model.Imie @Model.Nazwisko</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Data urodzenia</dt>
+        <dd class="col-sm-10">@Model.DataUrodzenia.ToShortDateString()</dd>
+
+        <dt class="col-sm-2">Notatki</dt>
+        <dd class="col-sm-10">@Model.Notatki</dd>
+    </dl>
+</div>
+
+<hr />
+
+<h4>Umiejętności dziecka</h4>
+
+<p>
+    <a asp-controller="DzieckoUmiejetnosc"
+       asp-action="Create"
+       asp-route-dzieckoId="@Model.Id"
+       class="btn btn-primary">
+        Dodaj umiejętność
+    </a>
+</p>
+
+@if (Model.UmiejetnosciDziecka != null && Model.UmiejetnosciDziecka.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Umiejętność</th>
+                <th>Kierunek</th>
+                <th>Status</th>
+                <th>Komentarz</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var du in Model.UmiejetnosciDziecka)
+            {
+                <tr>
+                    <td>@du.Umiejetnosc?.Nazwa</td>
+                    <td>@du.Umiejetnosc?.Kierunek</td>
+                    <td>@du.Status</td>
+                    <td>@du.Komentarz</td>
+                    <td>
+                        <a asp-controller="DzieckoUmiejetnosc"
+                           asp-action="Edit"
+                           asp-route-id="@du.Id">Edytuj</a> |
+                        <a asp-controller="DzieckoUmiejetnosc"
+                           asp-action="Delete"
+                           asp-route-id="@du.Id">Usuń</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Dziecko nie ma jeszcze przypisanych umiejętności.</p>
+}
+<hr />
+<h4>Dziennik aktywności</h4>
+
+<p>
+    <a asp-controller="DziennikAktywnosci"
+       asp-action="Create"
+       asp-route-dzieckoId="@Model.Id"
+       class="btn btn-primary">
+        Dodaj aktywność
+    </a>
+</p>
+
+@if (Model.DziennikiAktywnosci != null && Model.DziennikiAktywnosci.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Aktywność</th>
+                <th>Czas (min)</th>
+                <th>Reakcja (1–5)</th>
+                <th>Notatki</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var log in Model.DziennikiAktywnosci.OrderByDescending(x => x.Data))
+            {
+                <tr>
+                    <td>@log.Data.ToShortDateString()</td>
+                    <td>@log.Aktywnosc?.Tytul</td>
+                    <td>@log.CzasTrwaniaMinuty</td>
+                    <td>@log.OcenaReakcjiDziecka</td>
+                    <td>@log.Notatki</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Brak zarejestrowanych aktywności.</p>
+}
+
