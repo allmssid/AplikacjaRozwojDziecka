@@ -1,0 +1,54 @@
+﻿@model Aplikacja_wspierajaca_rozwoj_dziecka.Models.DziennikAktywnosci
+
+@{
+    ViewData["Title"] = "Dodaj aktywność dziecku";
+    var dziecko = ViewBag.Dziecko as Aplikacja_wspierajaca_rozwoj_dziecka.Models.Dziecko;
+}
+
+<h2>Dodaj aktywność dziecku</h2>
+
+<p>
+    Dziecko: <strong>@dziecko?.Imie @dziecko?.Nazwisko</strong>
+</p>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <input type="hidden" asp-for="DzieckoId" />
+
+    <div class="form-group">
+        <label asp-for="AktywnoscId" class="control-label"></label>
+        <select asp-for="AktywnoscId"
+                class="form-control"
+                asp-items="@(ViewData["AktywnoscId"] as SelectList)">
+        </select>
+        <span asp-validation-for="AktywnoscId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Data" class="control-label"></label>
+        <input asp-for="Data" class="form-control" />
+        <span asp-validation-for="Data" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CzasTrwaniaMinuty" class="control-label"></label>
+        <input asp-for="CzasTrwaniaMinuty" class="form-control" />
+        <span asp-validation-for="CzasTrwaniaMinuty" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="OcenaReakcjiDziecka" class="control-label"></label>
+        <input asp-for="OcenaReakcjiDziecka" class="form-control" />
+        <span asp-validation-for="OcenaReakcjiDziecka" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Notatki" class="control-label"></label>
+        <textarea asp-for="Notatki" class="form-control"></textarea>
+        <span asp-validation-for="Notatki" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Zapisz</button>
+    <a asp-controller="Dziecko" asp-action="Details" asp-route-id="@Model.DzieckoId" class="btn btn-secondary">Anuluj</a>
+</form>

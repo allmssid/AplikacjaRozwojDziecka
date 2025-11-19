@@ -1,0 +1,45 @@
+﻿@model Aplikacja_wspierajaca_rozwoj_dziecka.Models.DzieckoUmiejetnosc
+
+@{
+    ViewData["Title"] = "Dodaj umiejętność dziecku";
+    var dziecko = ViewBag.Dziecko as Aplikacja_wspierajaca_rozwoj_dziecka.Models.Dziecko;
+}
+
+<h2>Dodaj umiejętność dziecku</h2>
+
+<p>
+    Dziecko: <strong>@dziecko?.Imie @dziecko?.Nazwisko</strong>
+</p>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    @* BARDZO WAŻNE: ukryte DzieckoId – bez tego w POST będzie 0 *@
+    <input type="hidden" asp-for="DzieckoId" />
+
+    <div class="form-group">
+        <label asp-for="UmiejetnoscId" class="control-label"></label>
+        <select asp-for="UmiejetnoscId"
+                class="form-control"
+                asp-items="@(ViewData["UmiejetnoscId"] as SelectList)">
+        </select>
+        <span asp-validation-for="UmiejetnoscId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Status" class="control-label"></label>
+        <select asp-for="Status" class="form-control"
+                asp-items="Html.GetEnumSelectList<StatusUmiejetnosci>()">
+        </select>
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Komentarz" class="control-label"></label>
+        <textarea asp-for="Komentarz" class="form-control"></textarea>
+        <span asp-validation-for="Komentarz" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Zapisz</button>
+    <a asp-controller="Dziecko" asp-action="Details" asp-route-id="@Model.DzieckoId" class="btn btn-secondary">Anuluj</a>
+</form>

@@ -1,0 +1,17 @@
+﻿@model Aplikacja_wspierajaca_rozwoj_dziecka.Models.DzieckoUmiejetnosc
+
+<h2>Usuń przypisanie umiejętności</h2>
+
+<p>Czy na pewno chcesz usunąć tę umiejętność z dziecka?</p>
+
+<p>
+    Dziecko: <strong>@Model.Dziecko?.Imie @Model.Dziecko?.Nazwisko</strong><br />
+    Umiejętność: <strong>@Model.Umiejetnosc?.Nazwa</strong><br />
+    Status: <strong>@Model.Status</strong>
+</p>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Usuń</button>
+    <a asp-controller="Dziecko" asp-action="Details" asp-route-id="@Model.DzieckoId" class="btn btn-secondary">Anuluj</a>
+</form>

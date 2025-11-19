@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Aplikacja_wspierajaca_rozwoj_dziecka.Models.Aktywnosc>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Tytul)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Opis)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Kierunek)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ZalecanyWiekOdRoku)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ZalecanyWiekDoRoku)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SzacowanyCzasMinuty)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tytul)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Opis)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kierunek)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ZalecanyWiekOdRoku)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ZalecanyWiekDoRoku)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SzacowanyCzasMinuty)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>
